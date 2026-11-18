@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#641b3b">
+  <meta name="description" content="Portfolio of Ndagire Hannah Kavuma — Software Engineering student, web designer and developer in Kampala, Uganda.">
+  <title>Ndagire Hannah Kavuma | Web Designer & Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --pink: #e9a0bd;
+      --pink-soft: #f9e8ef;
+      --maroon: #641b3b;
+      --maroon-deep: #3b1025;
+      --white: #fffdfd;
+      --ink: #321b27;
+      --muted: #806b75;
+      --line: rgba(100,27,59,.13);
+      --shadow: 0 24px 70px rgba(76, 17, 44, .12);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { font-family: "DM Sans", sans-serif; color: var(--ink); background: var(--white); overflow-x: hidden; }
+    body.menu-open { overflow: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    .cursor-glow { position: fixed; width: 320px; height: 320px; border-radius: 50%; pointer-events: none; z-index: -1; background: radial-gradient(circle, rgba(233,160,189,.18), transparent 68%); transform: translate(-50%,-50%); }
+    .nav-wrap { position: fixed; top: 0; left: 0; width: 100%; z-index: 50; padding: 18px 5.5%; transition: .35s ease; }
+    .nav-wrap.scrolled { background: rgba(255,253,253,.88); backdrop-filter: blur(18px); box-shadow: 0 8px 30px rgba(59,16,37,.07); padding-top: 12px; padding-bottom: 12px; }
+    nav { max-width: 1280px; margin: auto; display: flex; align-items: center; justify-content: space-between; }
+    .brand { font-family: "Playfair Display", serif; color: var(--maroon); font-size: 1.35rem; font-weight: 700; letter-spacing: -.04em; }
+    .brand span { color: #d77fa3; }
+    .nav-links { display: flex; align-items: center; gap: 34px; list-style: none; }
+    .nav-links a { font-size: .87rem; color: #654d59; transition: color .25s; }
+    .nav-links a:hover { color: #c35f8b; }
+    .nav-cta, .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 999px; background: var(--maroon); color: white; padding: 14px 23px; font-weight: 600; font-size: .88rem; box-shadow: 0 10px 24px rgba(100,27,59,.18); transition: transform .25s, box-shadow .25s, background .25s; cursor: pointer; }
+    .nav-cta:hover, .button:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(100,27,59,.24); background: #84264f; }
+    .menu-toggle { display: none; border: 1px solid var(--line); background: white; width: 46px; height: 46px; border-radius: 50%; color: var(--maroon); cursor: pointer; z-index: 70; position: relative; }
+    .menu-toggle span { display: block; width: 18px; height: 2px; background: currentColor; margin: 5px auto; transition: .3s; }
+    .menu-toggle.active span:first-child { transform: translateY(3.5px) rotate(45deg); }
+    .menu-toggle.active span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+    .mobile-menu { position: fixed; inset: 0; z-index: 60; background: linear-gradient(145deg, #3b1025, #641b3b 60%, #8e315b); color: white; display: flex; flex-direction: column; justify-content: center; padding: 12vh 11%; clip-path: inset(0 0 100% 0); transition: clip-path .65s cubic-bezier(.76,0,.24,1); visibility: hidden; }
+    .mobile-menu.open { clip-path: inset(0 0 0 0); visibility: visible; }
+    .mobile-menu .menu-kicker { color: #efb6cb; text-transform: uppercase; letter-spacing: .2em; font-size: .7rem; margin-bottom: 26px; }
+    .mobile-menu a { font-family: "Playfair Display", serif; font-size: clamp(2.4rem, 9vw, 4.5rem); line-height: 1.28; width: fit-content; transition: color .2s, transform .2s; }
+    .mobile-menu a:hover { color: var(--pink); transform: translateX(10px); }
+    .mobile-menu .menu-bottom { position: absolute; bottom: 7%; left: 11%; color: #e7bdcd; font-size: .8rem; }
+    .hero { min-height: 100vh; padding: 150px 5.5% 90px; display: flex; align-items: center; position: relative; overflow: hidden; background: radial-gradient(circle at 85% 22%, rgba(233,160,189,.24), transparent 27%), linear-gradient(120deg, #fffdfd 0%, #fff8fb 62%, #f9e8ef 100%); }
+    .hero::before { content: ""; position: absolute; width: 460px; height: 460px; border: 1px solid rgba(100,27,59,.10); border-radius: 50%; right: -180px; bottom: -200px; box-shadow: 0 0 0 42px rgba(100,27,59,.025), 0 0 0 84px rgba(100,27,59,.02); }
+    .hero-inner { width: 100%; max-width: 1280px; margin: auto; display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 60px; position: relative; z-index: 1; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #a64b70; text-transform: uppercase; letter-spacing: .18em; font-size: .72rem; font-weight: 700; margin-bottom: 25px; }
+    .eyebrow::before { content: ""; width: 32px; height: 1px; background: var(--pink); }
+    h1, h2, h3 { font-family: "Playfair Display", serif; }
+    .hero h1 { color: var(--maroon-deep); font-size: clamp(3.4rem, 7vw, 6.7rem); line-height: .99; letter-spacing: -.055em; max-width: 760px; }
+    .hero h1 em { color: #c66d92; font-style: normal; }
+    .hero-copy { max-width: 570px; color: var(--muted); font-size: 1.05rem; line-height: 1.9; margin: 28px 0 34px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+    .button-outline { display: inline-flex; align-items: center; justify-content: center; padding: 13px 22px; border: 1px solid rgba(100,27,59,.25); border-radius: 999px; color: var(--maroon); font-weight: 600; font-size: .88rem; transition: .25s; }
+    .button-outline:hover { background: white; border-color: var(--maroon); transform: translateY(-3px); }
+    .hero-note { display: flex; align-items: center; gap: 10px; margin-top: 55px; color: #8c7580; font-size: .78rem; }
+    .status-dot { width: 8px; height: 8px; background: #65a985; border-radius: 50%; box-shadow: 0 0 0 5px rgba(101,169,133,.13); }
+    .hero-art { position: relative; min-height: 520px; display: grid; place-items: center; }
+    .portrait-frame { width: min(390px, 83%); aspect-ratio: .78; border-radius: 48% 48% 24px 24px; background: linear-gradient(150deg, #f1c3d4, #a84670); position: relative; overflow: hidden; box-shadow: 0 35px 80px rgba(100,27,59,.22); transform: rotate(3deg); }
+    .portrait-frame::before { content: "NHK"; position: absolute; inset: auto 0 22px; text-align: center; font-family: "Playfair Display", serif; font-size: 6rem; font-weight: 700; color: rgba(255,255,255,.22); letter-spacing: -.08em; }
+    .portrait-frame::after { content: ""; position: absolute; width: 75%; height: 75%; left: 12%; top: 10%; border: 1px solid rgba(255,255,255,.38); border-radius: 50% 50% 20px 20px; }
+    .portrait-label { position: absolute; bottom: 6%; left: 0; right: 0; text-align: center; color: white; z-index: 2; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; }
+    .floating-card { position: absolute; background: rgba(255,255,255,.88); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,.8); box-shadow: var(--shadow); border-radius: 18px; padding: 17px 20px; animation: float 5s ease-in-out infinite; }
+    .floating-card strong { display: block; color: var(--maroon); font-family: "Playfair Display", serif; font-size: 1.45rem; }
+    .floating-card small { color: var(--muted); font-size: .7rem; }
+    .card-one { top: 15%; left: 0; } .card-two { bottom: 16%; right: -2%; animation-delay: -2.3s; }
+    @keyframes float { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-13px) rotate(1deg); } }
+    section { padding: 110px 5.5%; }
+    .section-inner { max-width: 1150px; margin: auto; }
+    .section-heading { max-width: 700px; margin-bottom: 55px; }
+    .section-heading .eyebrow { margin-bottom: 17px; }
+    .section-heading h2 { color: var(--maroon-deep); font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1.08; letter-spacing: -.04em; }
+    .section-heading p { color: var(--muted); line-height: 1.85; margin-top: 18px; max-width: 620px; }
+    .about { background: white; }
+    .about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: start; }
+    .about-stamp { background: var(--pink-soft); min-height: 350px; border-radius: 8px 100px 8px 8px; padding: 42px; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; }
+    .about-stamp::after { content: "H"; position: absolute; right: -12px; bottom: -95px; font-family: "Playfair Display", serif; font-size: 24rem; color: rgba(198,109,146,.12); line-height: 1; }
+    .stamp-top { color: #a64b70; font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; }
+    .stamp-quote { font-family: "Playfair Display", serif; font-size: 2.1rem; line-height: 1.2; color: var(--maroon); position: relative; z-index: 1; }
+    .about-copy p { color: var(--muted); line-height: 1.95; margin-bottom: 19px; }
+    .about-facts { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; margin-top: 30px; }
+    .fact { padding: 17px 18px; border: 1px solid var(--line); border-radius: 13px; }
+    .fact span { display: block; color: #a64b70; font-size: .7rem; text-transform: uppercase; letter-spacing: .12em; margin-bottom: 7px; }
+    .fact strong { color: var(--maroon); font-size: .92rem; }
+    .skills { background: #fff8fb; }
+    .skills-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .skill-card { background: white; border: 1px solid rgba(100,27,59,.08); padding: 27px; border-radius: 18px; transition: transform .3s, box-shadow .3s, border-color .3s; }
+    .skill-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); border-color: rgba(198,109,146,.4); }
+    .skill-icon { width: 45px; height: 45px; border-radius: 14px; background: var(--pink-soft); display: grid; place-items: center; color: var(--maroon); font-weight: 700; margin-bottom: 22px; }
+    .skill-card h3 { font-size: 1.35rem; color: var(--maroon); margin-bottom: 9px; }
+    .skill-card p { color: var(--muted); font-size: .86rem; line-height: 1.7; }
+    .projects { background: white; }
+    .project-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 22px; }
+    .project-card { border: 1px solid var(--line); border-radius: 20px; overflow: hidden; transition: transform .3s, box-shadow .3s; }
+    .project-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); }
+    .project-visual { min-height: 230px; padding: 28px; background: linear-gradient(135deg, #f8dce7, #f4edf1); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .project-visual.dark { background: linear-gradient(135deg, #451329, #8d3a60); }
+    .browser { width: 85%; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 18px 45px rgba(59,16,37,.18); transform: rotate(-3deg); }
+    .browser-bar { height: 23px; background: #f4edf1; display: flex; gap: 4px; align-items: center; padding: 0 9px; }
+    .browser-bar i { width: 5px; height: 5px; background: #d99ab3; border-radius: 50%; }
+    .browser-content { padding: 20px; }
+    .browser-line { height: 7px; border-radius: 8px; background: #f0dce5; margin: 9px 0; width: 80%; }
+    .browser-line.short { width: 45%; background: #c66d92; }
+    .browser-block { height: 65px; background: #f9e8ef; border-radius: 6px; margin-top: 15px; }
+    .project-number { position: absolute; top: 18px; left: 22px; font-size: .7rem; color: #9e5875; letter-spacing: .15em; }
+    .dark .project-number { color: #f3c7d8; }
+    .project-info { padding: 27px 29px 30px; }
+    .project-info h3 { font-size: 1.5rem; color: var(--maroon); margin-bottom: 10px; }
+    .project-info p { color: var(--muted); font-size: .88rem; line-height: 1.75; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .tags span { background: var(--pink-soft); color: #914264; border-radius: 999px; padding: 7px 11px; font-size: .7rem; font-weight: 600; }
+    .journey { background: var(--maroon-deep); color: white; }
+    .journey .section-heading h2 { color: white; }
+    .journey .section-heading p { color: #d9bdca; }
+    .journey .eyebrow { color: #efb6cb; }
+    .journey-line { display: grid; grid-template-columns: repeat(3,1fr); gap: 25px; }
+    .journey-item { border-top: 1px solid rgba(255,255,255,.24); padding-top: 22px; }
+    .journey-item span { color: #e7a9c1; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; }
+    .journey-item h3 { font-size: 1.45rem; margin: 14px 0 10px; }
+    .journey-item p { color: #d9bdca; font-size: .86rem; line-height: 1.8; }
+    .contact { background: #fff8fb; }
+    .contact-panel { background: white; border-radius: 25px; padding: clamp(28px,5vw,60px); display: grid; grid-template-columns: 1fr 1fr; gap: 55px; box-shadow: var(--shadow); }
+    .contact-copy h2 { font-size: clamp(2.5rem,5vw,4rem); line-height: 1.05; color: var(--maroon-deep); margin: 15px 0 20px; }
+    .contact-copy p { color: var(--muted); line-height: 1.85; }
+    .contact-detail { margin-top: 30px; color: var(--maroon); font-weight: 600; }
+    .contact-form { display: grid; gap: 14px; }
+    .contact-form label { font-size: .75rem; color: #765a68; font-weight: 600; }
+    .field { display: grid; gap: 8px; }
+    .contact-form input, .contact-form textarea { width: 100%; border: 1px solid var(--line); background: #fffdfd; border-radius: 11px; padding: 14px 15px; font: inherit; color: var(--ink); outline: none; transition: border .2s, box-shadow .2s; }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: #c66d92; box-shadow: 0 0 0 4px rgba(198,109,146,.12); }
+    .contact-form textarea { resize: vertical; min-height: 120px; }
+    .contact-form .button { width: fit-content; margin-top: 5px; }
+    footer { background: #2c0d1d; color: #d8b9c7; padding: 28px 5.5%; font-size: .78rem; }
+    .footer-inner { max-width: 1280px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .footer-inner strong { color: white; font-family: "Playfair Display",serif; font-size: 1.1rem; }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.7,.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: .12s; } .delay-2 { transition-delay: .24s; } .delay-3 { transition-delay: .36s; }
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta { display: none; } .menu-toggle { display: block; }
+      .hero-inner { grid-template-columns: 1fr .75fr; gap: 20px; } .hero-art { min-height: 420px; }
+      .about-grid { gap: 40px; } .skills-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 650px) {
+      .nav-wrap { padding: 14px 6%; } .hero { padding: 125px 6% 65px; min-height: auto; }
+      .hero-inner { grid-template-columns: 1fr; gap: 30px; } .hero h1 { font-size: clamp(3.35rem, 15vw, 5rem); }
+      .hero-copy { font-size: .96rem; } .hero-art { min-height: 390px; margin: 0 4%; }
+      .portrait-frame { width: 68%; } .card-one { left: -2%; top: 13%; } .card-two { right: -3%; bottom: 12%; }
+      section { padding: 78px 6%; } .about-grid, .contact-panel { grid-template-columns: 1fr; gap: 30px; }
+      .about-stamp { min-height: 260px; } .skills-grid, .project-grid, .journey-line { grid-template-columns: 1fr; }
+      .project-visual { min-height: 205px; } .contact-panel { padding: 28px 22px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cursor-glow" aria-hidden="true"></div>
+  <header class="nav-wrap" id="top">
+    <nav aria-label="Main navigation">
+      <a class="brand" href="#top">Hannah<span>.</span></a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li><li><a href="#skills">Skills</a></li><li><a href="#projects">Projects</a></li><li><a href="#journey">Journey</a></li>
+      </ul>
+      <a class="nav-cta" href="#contact">Let's connect <span>↗</span></a>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span></button>
+    </nav>
+  </header>
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <span class="menu-kicker">Explore my portfolio</span>
+    <a href="#about">About me</a><a href="#skills">My skills</a><a href="#projects">Projects</a><a href="#journey">My journey</a><a href="#contact">Contact</a>
+    <div class="menu-bottom">Ndagire Hannah Kavuma · Kampala, Uganda</div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="eyebrow reveal">Software engineering student · Kampala, Uganda</div>
+          <h1 class="reveal delay-1">Ideas into<br><em>beautiful</em><br>digital things.</h1>
+          <p class="hero-copy reveal delay-2">I'm <strong>Ndagire Hannah Kavuma</strong> — an aspiring software engineer, web designer and developer who enjoys turning ideas into thoughtful, functional digital experiences.</p>
+          <div class="hero-actions reveal delay-3">
+            <a class="button" href="#projects">Explore my work <span>↗</span></a>
+            <a class="button-outline" href="#about">Get to know me</a>
+          </div>
+          <div class="hero-note reveal delay-3"><span class="status-dot"></span> Learning, creating and growing — one project at a time.</div>
+        </div>
+        <div class="hero-art reveal delay-2">
+          <div class="floating-card card-one"><strong>Creative</strong><small>Design with purpose</small></div>
+          <div class="portrait-frame"><div class="portrait-label">Curious mind · Creative spirit</div></div>
+          <div class="floating-card card-two"><strong>Code + Design</strong><small>Building digital experiences</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <div class="section-inner">
+        <div class="section-heading reveal"><div class="eyebrow">A little about me</div><h2>Curiosity is where<br>my best work begins.</h2></div>
+        <div class="about-grid">
+          <div class="about-stamp reveal"><span class="stamp-top">The person behind the pixels</span><div class="stamp-quote">“Always learning. Always creating.”</div></div>
+          <div class="about-copy reveal delay-1">
+            <p>My name is <strong>Ndagire Hannah Kavuma</strong>, and I am a Software Engineering student at <strong>Victoria University, Kampala, Uganda</strong>. I am passionate about technology and the creative possibilities that come with building for the web.</p>
+            <p>I enjoy exploring how design and code work together to make websites clear, engaging and easy to use. My current toolkit includes front-end web technologies, programming fundamentals, database programming and everyday productivity tools.</p>
+            <p>As I continue developing my skills, I look forward to working on meaningful projects, learning from others and growing into a confident software professional.</p>
+            <div class="about-facts">
+              <div class="fact"><span>Currently</span><strong>Software Engineering student</strong></div>
+              <div class="fact"><span>Based in</span><strong>Kampala, Uganda</strong></div>
+              <div class="fact"><span>Interested in</span><strong>Web design & development</strong></div>
+              <div class="fact"><span>Mindset</span><strong>Creative and curious</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="skills" id="skills">
+      <div class="section-inner">
+        <div class="section-heading reveal"><div class="eyebrow">My toolkit</div><h2>Skills I'm building<br>and putting to work.</h2><p>A growing mix of creative, technical and productivity skills that help me approach projects from different angles.</p></div>
+        <div class="skills-grid">
+          <article class="skill-card reveal"><div class="skill-icon">HTML</div><h3>HTML5</h3><p>Structuring clear, accessible and meaningful web pages.</p></article>
+          <article class="skill-card reveal delay-1"><div class="skill-icon">CSS</div><h3>CSS3</h3><p>Styling responsive layouts, visual details and engaging interfaces.</p></article>
+          <article class="skill-card reveal delay-2"><div class="skill-icon">JS</div><h3>JavaScript</h3><p>Adding interactivity and dynamic behaviour to web experiences.</p></article>
+          <article class="skill-card reveal"><div class="skill-icon">C</div><h3>C Programming</h3><p>Practising programming logic, problem-solving and core concepts.</p></article>
+          <article class="skill-card reveal delay-1"><div class="skill-icon">DB</div><h3>Database Programming</h3><p>Working with data, database concepts and structured queries.</p></article>
+          <article class="skill-card reveal delay-2"><div class="skill-icon">MS</div><h3>Microsoft Office</h3><p>Creating and organising documents, presentations and spreadsheets.</p></article>
+          <article class="skill-card reveal"><div class="skill-icon">GH</div><h3>GitHub</h3><p>Exploring version control and managing code repositories.</p></article>
+          <article class="skill-card reveal delay-1"><div class="skill-icon">AI</div><h3>ChatGPT</h3><p>Using AI as a support tool for learning, brainstorming and productivity.</p></article>
+          <article class="skill-card reveal delay-2"><div class="skill-icon">✦</div><h3>Web design</h3><p>Bringing structure, usability and visual presentation together.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="projects" id="projects">
+      <div class="section-inner">
+        <div class="section-heading reveal"><div class="eyebrow">Selected work</div><h2>Learning by<br>making things.</h2><p>These are example portfolio project concepts based on the areas I'm learning. Replace the descriptions or add links as your projects become ready to showcase.</p></div>
+        <div class="project-grid">
+          <article class="project-card reveal">
+            <div class="project-visual"><span class="project-number">PROJECT CONCEPT · 01</span><div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><div class="browser-content"><div class="browser-line short"></div><div class="browser-line"></div><div class="browser-block"></div><div class="browser-line"></div></div></div></div>
+            <div class="project-info"><h3>Salon Booking Website</h3><p>A salon website concept designed to showcase hairstyles, introduce services and make it easier for customers to request appointments online.</p><div class="tags"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>Database</span></div></div>
+          </article>
+          <article class="project-card reveal delay-1">
+            <div class="project-visual dark"><span class="project-number">PROJECT CONCEPT · 02</span><div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><div class="browser-content"><div class="browser-line short"></div><div class="browser-block"></div><div class="browser-line"></div><div class="browser-line short"></div></div></div></div>
+            <div class="project-info"><h3>Responsive Business Website</h3><p>A modern website concept focused on presenting a business, its services and contact information in a polished, mobile-friendly layout.</p><div class="tags"><span>Web design</span><span>HTML</span><span>CSS</span><span>Responsive UI</span></div></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="journey" id="journey">
+      <div class="section-inner">
+        <div class="section-heading reveal"><div class="eyebrow">My journey</div><h2>Building the foundation<br>for what's next.</h2><p>Every new concept, assignment and project is another opportunity to improve my craft.</p></div>
+        <div class="journey-line">
+          <div class="journey-item reveal"><span>01 · Learn</span><h3>Explore the fundamentals</h3><p>Strengthening my understanding of programming, web technologies and database concepts through study and practice.</p></div>
+          <div class="journey-item reveal delay-1"><span>02 · Create</span><h3>Turn knowledge into practice</h3><p>Applying what I learn to practical exercises and website concepts while developing my design and coding confidence.</p></div>
+          <div class="journey-item reveal delay-2"><span>03 · Grow</span><h3>Keep moving forward</h3><p>Seeking opportunities to collaborate, gain experience and contribute to useful digital solutions.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="section-inner">
+        <div class="contact-panel reveal">
+          <div class="contact-copy"><div class="eyebrow">Let's connect</div><h2>Have an idea?<br>Let's talk.</h2><p>I'm open to connecting with fellow learners, creatives and people working on interesting digital ideas. Send me a message and let's start a conversation.</p><div class="contact-detail">Ndagire Hannah Kavuma<br><span style="font-weight:400;color:#806b75">Kampala, Uganda</span></div></div>
+          <form class="contact-form" id="contactForm">
+            <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" placeholder="Enter your name" required></div>
+            <div class="field"><label for="email">Your email</label><input id="email" name="email" type="email" placeholder="you@example.com" required></div>
+            <div class="field"><label for="message">Your message</label><textarea id="message" name="message" placeholder="Tell me a little about what you have in mind..." required></textarea></div>
+            <button class="button" type="submit">Prepare message <span>↗</span></button>
+            <small style="color:#927b86;line-height:1.6">This opens your email app with your message prepared. Add your email address in the script before publishing.</small>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="footer-inner"><strong>Hannah.</strong><span>Designed with curiosity & care · © <span id="year"></span> Ndagire Hannah Kavuma</span><a href="#top">Back to top ↑</a></div></footer>
+
+  <script>
+    const nav = document.querySelector('.nav-wrap');
+    const toggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.mobile-menu');
+    const menuLinks = menu.querySelectorAll('a');
+    function closeMenu() {
+      toggle.classList.remove('active');
+      menu.classList.remove('open');
+      document.body.classList.remove('menu-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open menu');
+      menu.setAttribute('aria-hidden', 'true');
+    }
+    toggle.addEventListener('click', () => {
+      const opening = !menu.classList.contains('open');
+      toggle.classList.toggle('active', opening);
+      menu.classList.toggle('open', opening);
+      document.body.classList.toggle('menu-open', opening);
+      toggle.setAttribute('aria-expanded', String(opening));
+      toggle.setAttribute('aria-label', opening ? 'Close menu' : 'Open menu');
+      menu.setAttribute('aria-hidden', String(!opening));
+    });
+    menuLinks.forEach(link => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeMenu(); });
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 30));
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const glow = document.querySelector('.cursor-glow');
+    window.addEventListener('pointermove', event => {
+      glow.style.left = event.clientX + 'px';
+      glow.style.top = event.clientY + 'px';
+    }, { passive: true });
+    document.getElementById('contactForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const subject = encodeURIComponent('Portfolio enquiry from ' + data.get('name'));
+      const body = encodeURIComponent('Name: ' + data.get('name') + '\nEmail: ' + data.get('email') + '\n\n' + data.get('message'));
+      // Replace the address below with the email address you want visitors to contact.
+      window.location.href = 'mailto:YOUR-EMAIL@example.com?subject=' + subject + '&body=' + body;
+    });
+  </script>
+</body>
+</html>
